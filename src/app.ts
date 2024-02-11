@@ -1,13 +1,24 @@
-import { Request, Response } from "express";
+import bodyParser from "body-parser";
+import Express from "express";
+import controllers from "./controllers";
+import authMiddleware from "./middlewares/auth.middleware";
+import prisma from "./prisma/client.prisma";
 
-const express = require("express");
-const app = express();
+const app = Express();
 const port = 3000;
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hello World!");
+const jsonParser = bodyParser.json();
+
+app.use(jsonParser);
+app.use(authMiddleware);
+app.use(controllers);
+
+const server = app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+process.on("SIGTERM", () => {
+  server.close(async () => {
+    await prisma.$disconnect();
+  });
 });
