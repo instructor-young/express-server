@@ -4,7 +4,9 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "dev": "concurrently \"tsc --watch --project tsconfig.json\" \"node --watch ./dist/app.js\""
+    "dev": "concurrently \"tsc --watch --project tsconfig.json\" \"node --watch ./dist/app.js\"",
+    "build": "tsc --project tsconfig.json",
+    "start": "node ./dist/app.js"
   },
   "keywords": [],
   "author": "",
