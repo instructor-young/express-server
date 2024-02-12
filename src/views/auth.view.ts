@@ -3,7 +3,7 @@ import userModel from "../models/user.model";
 
 export const signUp: RequestHandler<
   never,
-  { accessToken: string },
+  never,
   { email: string; password: string }
 > = async (req, res, next) => {
   try {
@@ -13,7 +13,12 @@ export const signUp: RequestHandler<
     const user = await userModel.createUser(email, password);
     const accessToken = await userModel.createAccessToken(user);
 
-    res.json({ accessToken });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 1000 * 60 * 20,
+    });
+    res.status(200).send();
   } catch (e) {
     next(e);
   }
@@ -21,10 +26,9 @@ export const signUp: RequestHandler<
 
 export const logIn: RequestHandler<
   never,
-  { accessToken: string },
+  never,
   { email: string; password: string }
 > = async (req, res, next) => {
-  console.log(req.user);
   try {
     const { email, password } = req.body;
     const isCorrectPassword = await userModel.verifyPassword(email, password);
@@ -35,12 +39,13 @@ export const logIn: RequestHandler<
 
     const accessToken = await userModel.createAccessToken(user);
 
-    res.json({ accessToken });
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 1000 * 60 * 20,
+    });
+    res.status(200).send();
   } catch (e) {
     next(e);
   }
-};
-
-export const refreshToken: RequestHandler = (_, res) => {
-  res.send("refreshToken");
 };

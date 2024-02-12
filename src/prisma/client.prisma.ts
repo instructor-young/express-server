@@ -15,6 +15,4 @@ const prisma = new PrismaClient().$extends({
   },
 });
 
-console.log("ENV...", process.env.NODE_ENV, process.env.DATABASE_URL);
-
 export default prisma;

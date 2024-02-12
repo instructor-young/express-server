@@ -3,7 +3,7 @@ import userModel from "../models/user.model";
 
 export default async function authMiddleware(
   req: Request,
-  _: Response,
+  res: Response,
   next: NextFunction,
 ) {
   try {
@@ -14,8 +14,14 @@ export default async function authMiddleware(
     if (!accessToken) return next();
 
     const user = await userModel.getUserByAccessToken(accessToken);
-    if (!user) throw new Error("No user");
+    if (!user) throw new Error("Bad request");
 
+    const newAccessToken = await userModel.createAccessToken(user);
+    res.cookie("accessToken", newAccessToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 1000 * 60 * 20,
+    });
     req.user = user;
     next();
   } catch (e) {
