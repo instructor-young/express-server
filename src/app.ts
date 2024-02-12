@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cors from "cors";
 import Express from "express";
 import controllers from "./controllers";
 import authMiddleware from "./middlewares/auth.middleware";
@@ -9,6 +10,7 @@ const port = 3000;
 
 const jsonParser = bodyParser.json();
 
+app.use(cors());
 app.use(jsonParser);
 app.use(authMiddleware);
 app.use(controllers);
