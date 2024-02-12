@@ -8,11 +8,11 @@ import enhancerMiddleware from "./middlewares/enhancer.middleware";
 import prisma from "./prisma/client.prisma";
 
 const app = Express();
-const port = 3000;
+const port = 5555;
 
 const jsonParser = bodyParser.json();
 
-app.use(cors());
+app.use(cors({ credentials: true }));
 app.use(jsonParser);
 app.use(enhancerMiddleware);
 app.use(authMiddleware);
