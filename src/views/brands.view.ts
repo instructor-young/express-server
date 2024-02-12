@@ -2,10 +2,11 @@ import { Brand, Product } from "@prisma/client";
 import { RequestHandler } from "express";
 import brandModel from "../models/brand.model";
 
-export const getBrands: RequestHandler<
-  never,
-  { brands: (Brand & { products: Product[] })[] }
-> = async (_, res, next) => {
+export const getBrands: RequestHandler<never, { brands: Brand[] }> = async (
+  _,
+  res,
+  next,
+) => {
   try {
     const brands = await brandModel.getBrands();
 

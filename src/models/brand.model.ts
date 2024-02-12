@@ -2,9 +2,7 @@ import prisma from "../prisma/client.prisma";
 
 class BrandModel {
   async getBrands() {
-    const brands = await prisma.brand.findMany({
-      include: { products: { include: { brand: true } } },
-    });
+    const brands = await prisma.brand.findMany();
 
     return brands;
   }

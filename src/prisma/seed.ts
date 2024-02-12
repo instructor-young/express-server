@@ -8,8 +8,8 @@ async function main() {
 
   for (const product of products) {
     const brandId = product.brandno;
-    const brandNameKr = product.brandnm_kr;
-    const brandNameEn = product.brandnm;
+    const brandNameKr = product.brandnm_kr.trim();
+    const brandNameEn = product.brandnm.trim();
 
     const brand = await prisma.brand.upsert({
       where: { id: brandId },
@@ -18,7 +18,7 @@ async function main() {
     });
 
     const productId = Number(product.id);
-    const productName = product.goodsnm;
+    const productName = product.goodsnm.trim();
     const productImgSrc = product.img_i;
     const productOriginalPrice = product.consumer;
     const productPrice = product.price;
