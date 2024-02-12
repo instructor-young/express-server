@@ -17,6 +17,7 @@ export const signUp: RequestHandler<
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
+      sameSite: "lax",
       maxAge: 1000 * 60 * 20,
       domain: ".cloudtype.app",
     });
@@ -44,6 +45,7 @@ export const logIn: RequestHandler<
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
+      sameSite: "lax",
       maxAge: 1000 * 60 * 20,
       domain: ".cloudtype.app",
     });
@@ -59,6 +61,7 @@ export const logOut: RequestHandler = async (_, res, next) => {
       domain: ".cloudtype.app",
       httpOnly: true,
       secure: true,
+      sameSite: "lax",
     });
     res.status(200).sendJson();
   } catch (e) {
@@ -78,6 +81,7 @@ export const refreshToken: RequestHandler<
         domain: ".cloudtype.app",
         httpOnly: true,
         secure: true,
+        sameSite: "lax",
       });
       res.status(204).sendJson(false);
 
@@ -89,6 +93,7 @@ export const refreshToken: RequestHandler<
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
+      sameSite: "lax",
       maxAge: 1000 * 60 * 20,
       domain: ".cloudtype.app",
     });
