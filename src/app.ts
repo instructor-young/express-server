@@ -1,4 +1,5 @@
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import cors from "cors";
 import Express from "express";
 import controllers from "./controllers";
@@ -21,6 +22,7 @@ app.use(
     ],
   }),
 );
+app.use(cookieParser());
 app.use(jsonParser);
 app.use(enhancerMiddleware);
 app.use(authMiddleware);

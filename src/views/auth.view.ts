@@ -17,11 +17,11 @@ export const signUp: RequestHandler<
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 1000 * 60 * 20,
-      domain: ".cloudtype.app",
+      domain: "port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
     });
-    res.status(200).sendJson();
+    res.sendJson();
   } catch (e) {
     next(e);
   }
@@ -45,11 +45,11 @@ export const logIn: RequestHandler<
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 1000 * 60 * 20,
-      domain: ".cloudtype.app",
+      domain: "port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
     });
-    res.status(200).sendJson();
+    res.sendJson();
   } catch (e) {
     next(e);
   }
@@ -58,12 +58,12 @@ export const logIn: RequestHandler<
 export const logOut: RequestHandler = async (_, res, next) => {
   try {
     res.clearCookie("accessToken", {
-      domain: ".cloudtype.app",
+      domain: "port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
     });
-    res.status(200).sendJson();
+    res.sendJson();
   } catch (e) {
     next(e);
   }
@@ -78,12 +78,12 @@ export const refreshToken: RequestHandler<
     const user = req.user;
     if (!user) {
       res.clearCookie("accessToken", {
-        domain: ".cloudtype.app",
+        domain: "port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
         httpOnly: true,
         secure: true,
-        sameSite: "lax",
+        sameSite: "none",
       });
-      res.status(204).sendJson(false);
+      res.sendJson(false);
 
       return;
     }
@@ -93,11 +93,11 @@ export const refreshToken: RequestHandler<
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: true,
-      sameSite: "lax",
+      sameSite: "none",
       maxAge: 1000 * 60 * 20,
-      domain: ".cloudtype.app",
+      domain: "port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
     });
-    res.status(200).sendJson(true);
+    res.sendJson(true);
   } catch (e) {
     next(e);
   }

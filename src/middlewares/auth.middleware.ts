@@ -8,10 +8,8 @@ export default async function authMiddleware(
   next: NextFunction,
 ) {
   try {
-    const authorization = req.headers.authorization;
-    if (!authorization) return next();
-
-    const accessToken = authorization.split("Bearer ")[1];
+    const accessToken = req.cookies.accessToken;
+    console.log("accessToken", accessToken);
     if (!accessToken) return next();
 
     const user = await userModel.getUserByAccessToken(accessToken);

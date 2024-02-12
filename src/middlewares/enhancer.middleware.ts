@@ -12,7 +12,7 @@ export default async function enhancerMiddleware(
         result: data || null,
         error: null,
       };
-      return res.json(response);
+      res.json(response);
     };
 
     next();
