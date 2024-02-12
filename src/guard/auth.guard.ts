@@ -5,7 +5,7 @@ export default function authGuard(
   _: Response,
   next: NextFunction,
 ) {
-  if (!req.user) throw new Error();
+  if (!req.user) throw new Error("Unauthorized");
 
   next();
 }
