@@ -1,7 +1,8 @@
 import bodyParser from "body-parser";
 import cors from "cors";
-import Express, { Request, Response } from "express";
+import Express from "express";
 import controllers from "./controllers";
+import { errorHandler } from "./error/handler.error";
 import authMiddleware from "./middlewares/auth.middleware";
 import prisma from "./prisma/client.prisma";
 
@@ -14,9 +15,7 @@ app.use(cors());
 app.use(jsonParser);
 app.use(authMiddleware);
 app.use(controllers);
-app.use((err: Error, _: Request, res: Response) => {
-  res.json({ error: { message: err.message } });
-});
+app.use(errorHandler);
 
 const server = app.listen(port, () => {
   console.log(`App listening on port ${port}`);
