@@ -2,16 +2,21 @@ import { User } from "@prisma/client";
 import { compare, hash } from "bcrypt";
 import jwt from "jsonwebtoken";
 import { JWT_SECRET_KEY, PASSWORD_SALT_ROUNDS } from "../config";
+import CError from "../error/error";
 import prisma from "../prisma/client.prisma";
 
 class UserModel {
   async createUser(email: string, password: string) {
     const encryptedPassword = await hash(password, PASSWORD_SALT_ROUNDS);
-    const user = await prisma.user.create({
-      data: { email, encryptedPassword },
-    });
+    try {
+      const user = await prisma.user.create({
+        data: { email, encryptedPassword },
+      });
 
-    return user;
+      return user;
+    } catch (e) {
+      throw new CError("Email already exist", 400);
+    }
   }
 
   async getUserById(id: number) {
@@ -38,7 +43,7 @@ class UserModel {
       where: { email },
       select: { encryptedPassword: true },
     });
-    if (!user) throw new Error("No user");
+    if (!user) throw new CError("No user", 404);
 
     const isVerified = compare(password, user.encryptedPassword);
 

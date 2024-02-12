@@ -1,4 +1,5 @@
 import { RequestHandler } from "express";
+import CError from "../error/error";
 import userModel from "../models/user.model";
 
 export const signUp: RequestHandler<
@@ -8,7 +9,7 @@ export const signUp: RequestHandler<
 > = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    if (!email || !password) throw new Error("No email or password");
+    if (!email || !password) throw new CError("No email or password", 400);
 
     const user = await userModel.createUser(email, password);
     const accessToken = await userModel.createAccessToken(user);
@@ -32,10 +33,10 @@ export const logIn: RequestHandler<
   try {
     const { email, password } = req.body;
     const isCorrectPassword = await userModel.verifyPassword(email, password);
-    if (!isCorrectPassword) throw new Error("Incorrect password");
+    if (!isCorrectPassword) throw new CError("Incorrect password", 400);
 
     const user = await userModel.getUserByEmail(email);
-    if (!user) throw new Error("No User");
+    if (!user) throw new CError("No User", 404);
 
     const accessToken = await userModel.createAccessToken(user);
 

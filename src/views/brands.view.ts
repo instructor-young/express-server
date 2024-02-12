@@ -1,5 +1,6 @@
 import { Brand, Product } from "@prisma/client";
 import { RequestHandler } from "express";
+import CError from "../error/error";
 import brandModel from "../models/brand.model";
 
 export const getBrands: RequestHandler<never, { brands: Brand[] }> = async (
@@ -22,7 +23,7 @@ export const getBrand: RequestHandler<
 > = async (req, res, next) => {
   try {
     const brand = await brandModel.getBrand(Number(req.params.brandId));
-    if (!brand) throw new Error("No brand");
+    if (!brand) throw new CError("No brand", 404);
 
     res.sendJson(brand);
   } catch (e) {

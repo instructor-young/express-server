@@ -1,5 +1,6 @@
 import { Product } from "@prisma/client";
 import { RequestHandler } from "express";
+import CError from "../error/error";
 import productModel from "../models/product.model";
 
 export const getProducts: RequestHandler<
@@ -21,7 +22,7 @@ export const getProduct: RequestHandler<
 > = async (req, res, next) => {
   try {
     const product = await productModel.getProduct(Number(req.params.productId));
-    if (!product) throw new Error("No product");
+    if (!product) throw new CError("No product", 404);
 
     res.sendJson(product);
   } catch (e) {
