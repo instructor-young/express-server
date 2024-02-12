@@ -9,7 +9,6 @@ export default async function authMiddleware(
 ) {
   try {
     const accessToken = req.cookies.accessToken;
-    console.log("accessToken", req.cookies, accessToken);
     if (!accessToken) return next();
 
     const user = await userModel.getUserByAccessToken(accessToken);

@@ -26,10 +26,11 @@ class CartModel {
     const cartItem = await prisma.cartItem.update({
       where: {
         cartId_productId: { cartId: userId, productId },
-        quantity: { gte: 1 },
       },
       data: { quantity: { decrement: 1 } },
     });
+    if (cartItem.quantity === 0)
+      await this.clearItemFromCart(userId, productId);
 
     return cartItem;
   }
