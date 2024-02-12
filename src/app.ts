@@ -18,7 +18,7 @@ app.use(
     credentials: true,
     origin: [
       "http://localhost:3000",
-      "https://port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
+      "https://time-attack-frontend.vercel.app",
     ],
   }),
 );
