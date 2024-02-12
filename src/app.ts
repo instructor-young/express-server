@@ -12,7 +12,15 @@ const port = 5555;
 
 const jsonParser = bodyParser.json();
 
-app.use(cors({ credentials: true }));
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:3000",
+      "https://port-0-express-server-17xco2nlsidlckv.sel5.cloudtype.app",
+    ],
+  }),
+);
 app.use(jsonParser);
 app.use(enhancerMiddleware);
 app.use(authMiddleware);
