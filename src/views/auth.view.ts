@@ -19,7 +19,6 @@ export const signUp: RequestHandler<
       secure: true,
       maxAge: 1000 * 60 * 20,
       domain: ".cloudtype.app",
-      sameSite: false,
     });
     res.status(200).sendJson();
   } catch (e) {
@@ -47,7 +46,6 @@ export const logIn: RequestHandler<
       secure: true,
       maxAge: 1000 * 60 * 20,
       domain: ".cloudtype.app",
-      sameSite: false,
     });
     res.status(200).sendJson();
   } catch (e) {
@@ -61,7 +59,6 @@ export const logOut: RequestHandler = async (_, res, next) => {
       domain: ".cloudtype.app",
       httpOnly: true,
       secure: true,
-      sameSite: false,
     });
     res.status(200).sendJson();
   } catch (e) {
@@ -81,7 +78,6 @@ export const refreshToken: RequestHandler<
         domain: ".cloudtype.app",
         httpOnly: true,
         secure: true,
-        sameSite: false,
       });
       res.status(204).sendJson(false);
 
@@ -95,7 +91,6 @@ export const refreshToken: RequestHandler<
       secure: true,
       maxAge: 1000 * 60 * 20,
       domain: ".cloudtype.app",
-      sameSite: false,
     });
     res.status(200).sendJson(true);
   } catch (e) {
