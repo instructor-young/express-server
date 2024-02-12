@@ -49,6 +49,7 @@ class UserModel {
     const { id, email } = user;
     const accessToken = jwt.sign({ email }, JWT_SECRET_KEY, {
       subject: String(id),
+      expiresIn: "20m",
     });
 
     return accessToken;

@@ -49,3 +49,39 @@ export const logIn: RequestHandler<
     next(e);
   }
 };
+
+export const logOut: RequestHandler = async (_, res, next) => {
+  try {
+    res.clearCookie("accessToken");
+    res.status(200).send();
+  } catch (e) {
+    next(e);
+  }
+};
+
+export const refreshToken: RequestHandler<
+  never,
+  never,
+  { email: string; password: string }
+> = async (req, res, next) => {
+  try {
+    const user = req.user;
+    if (!user) {
+      res.clearCookie("accessToken");
+      res.status(204).send();
+
+      return;
+    }
+
+    const accessToken = await userModel.createAccessToken(user);
+
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: true,
+      maxAge: 1000 * 60 * 20,
+    });
+    res.status(200).send();
+  } catch (e) {
+    next(e);
+  }
+};
