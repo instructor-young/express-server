@@ -9,7 +9,7 @@ export const getProducts: RequestHandler<
   try {
     const products = await productModel.getProducts();
 
-    res.json({ products });
+    res.sendJson(products);
   } catch (e) {
     next(e);
   }
@@ -23,7 +23,7 @@ export const getProduct: RequestHandler<
     const product = await productModel.getProduct(Number(req.params.productId));
     if (!product) throw new Error("No product");
 
-    res.json({ product });
+    res.sendJson(product);
   } catch (e) {
     next(e);
   }

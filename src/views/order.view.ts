@@ -10,7 +10,7 @@ export const order: RequestHandler<
     // const { cartItemIds } = req.body;
     // const cartItem = await cartModel.addItemToCart(user.id, Number(productId));
 
-    res.json({ orderId: "blabla" });
+    res.sendJson({ orderId: "blabla" });
   } catch (e) {
     next(e);
   }

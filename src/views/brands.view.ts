@@ -10,7 +10,7 @@ export const getBrands: RequestHandler<never, { brands: Brand[] }> = async (
   try {
     const brands = await brandModel.getBrands();
 
-    res.json({ brands });
+    res.sendJson(brands);
   } catch (e) {
     next(e);
   }
@@ -24,7 +24,7 @@ export const getBrand: RequestHandler<
     const brand = await brandModel.getBrand(Number(req.params.brandId));
     if (!brand) throw new Error("No brand");
 
-    res.json({ brand });
+    res.sendJson(brand);
   } catch (e) {
     next(e);
   }

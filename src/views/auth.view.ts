@@ -18,7 +18,7 @@ export const signUp: RequestHandler<
       secure: true,
       maxAge: 1000 * 60 * 20,
     });
-    res.status(200).send();
+    res.status(200).sendJson();
   } catch (e) {
     next(e);
   }
@@ -44,7 +44,7 @@ export const logIn: RequestHandler<
       secure: true,
       maxAge: 1000 * 60 * 20,
     });
-    res.status(200).send();
+    res.status(200).sendJson();
   } catch (e) {
     next(e);
   }
@@ -53,7 +53,7 @@ export const logIn: RequestHandler<
 export const logOut: RequestHandler = async (_, res, next) => {
   try {
     res.clearCookie("accessToken");
-    res.status(200).send();
+    res.status(200).sendJson();
   } catch (e) {
     next(e);
   }
@@ -68,7 +68,7 @@ export const refreshToken: RequestHandler<
     const user = req.user;
     if (!user) {
       res.clearCookie("accessToken");
-      res.status(204).send();
+      res.status(204).sendJson();
 
       return;
     }
@@ -80,7 +80,7 @@ export const refreshToken: RequestHandler<
       secure: true,
       maxAge: 1000 * 60 * 20,
     });
-    res.status(200).send();
+    res.status(200).sendJson();
   } catch (e) {
     next(e);
   }

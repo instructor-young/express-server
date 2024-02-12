@@ -3,4 +3,8 @@ declare namespace Express {
     accessToken?: string;
     user: import("@prisma/client").User;
   }
+
+  interface Response {
+    sendJson: <T>(data?: T) => void;
+  }
 }

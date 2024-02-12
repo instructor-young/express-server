@@ -16,6 +16,8 @@ export default async function authMiddleware(
     const user = await userModel.getUserByAccessToken(accessToken);
     if (!user) throw new Error("Invalid accessToken");
 
+    req.user = user;
+
     next();
   } catch (e) {
     next(e);

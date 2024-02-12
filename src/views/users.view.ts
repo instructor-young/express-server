@@ -16,7 +16,7 @@ export const updateProfile: RequestHandler<
       gender,
     });
 
-    res.json({ profile });
+    res.sendJson(profile);
   } catch (e) {
     next(e);
   }

@@ -12,7 +12,7 @@ export const getCart: RequestHandler<never, { cart: Cart }> = async (
     const cart = await cartModel.getCartByUserId(user.id);
     if (!cart) throw new Error("No cart");
 
-    res.json({ cart });
+    res.sendJson(cart);
   } catch (e) {
     next(e);
   }
@@ -27,7 +27,7 @@ export const addItemToCart: RequestHandler<
     const { productId } = req.params;
     const cartItem = await cartModel.addItemToCart(user.id, Number(productId));
 
-    res.json({ cartItem });
+    res.sendJson(cartItem);
   } catch (e) {
     next(e);
   }
@@ -46,7 +46,7 @@ export const removeItemFromCart: RequestHandler<
     );
     if (!cartItem) throw new Error("No CartItem");
 
-    res.json({ cartItem });
+    res.sendJson(cartItem);
   } catch (e) {
     next(e);
   }
@@ -62,7 +62,7 @@ export const clearItemInCart: RequestHandler<
     const cartItem = await cartModel.addItemToCart(user.id, Number(productId));
     if (!cartItem) throw new Error("No CartItem");
 
-    res.json({ cartItem });
+    res.sendJson(cartItem);
   } catch (e) {
     next(e);
   }
