@@ -60,7 +60,10 @@ export const clearItemInCart: RequestHandler<
   try {
     const user = req.user;
     const { productId } = req.params;
-    const cartItem = await cartModel.addItemToCart(user.id, Number(productId));
+    const cartItem = await cartModel.clearItemInCart(
+      user.id,
+      Number(productId),
+    );
     if (!cartItem) throw new CError("No CartItem", 404);
 
     res.sendJson(cartItem);

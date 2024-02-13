@@ -29,13 +29,12 @@ class CartModel {
       },
       data: { quantity: { decrement: 1 } },
     });
-    if (cartItem.quantity === 0)
-      await this.clearItemFromCart(userId, productId);
+    if (cartItem.quantity === 0) await this.clearItemInCart(userId, productId);
 
     return cartItem;
   }
 
-  async clearItemFromCart(userId: number, productId: number) {
+  async clearItemInCart(userId: number, productId: number) {
     const cartItem = await prisma.cartItem.delete({
       where: { cartId_productId: { cartId: userId, productId } },
     });
