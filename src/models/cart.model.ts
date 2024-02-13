@@ -5,7 +5,10 @@ class CartModel {
     const cart = await prisma.cart.findUnique({
       where: { id: userId },
       include: {
-        items: { include: { product: { include: { brand: true } } } },
+        items: {
+          include: { product: { include: { brand: true } } },
+          orderBy: { createdAt: "desc" },
+        },
       },
     });
 
