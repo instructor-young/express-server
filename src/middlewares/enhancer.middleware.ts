@@ -9,7 +9,7 @@ export default async function enhancerMiddleware(
     res.sendJson = <T>(data: T) => {
       const response = {
         success: true,
-        result: data || null,
+        result: data === undefined ? null : data,
         error: null,
       };
       res.json(response);
