@@ -19,8 +19,7 @@ app.use(
     origin: [
       "http://localhost:3000",
       "https://time-attack-frontend.vercel.app",
-      "https://*.vercel.app",
-      "https://*.*.vercel.app",
+      /vercel\.app$/,
     ],
   }),
 );
